@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Раздел: Отношения</title>
+    <style>
+        /* Светлая тема (по умолчанию) */
+        body {
+            background-color: #fff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header {
+            background-color: #ff8c00;
+            color: white;
+            padding: 10px 20px;
+            text-align: left;
+            border-bottom: 2px solid #e67300;
+            cursor: pointer;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            display: flex;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .sidebar {
+            width: 20%;
+            padding-right: 20px;
+            border-right: 1px solid #eee;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 8px 12px;
+            background-color: #f9f9f9;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #ffb347;
+            color: white;
+        }
+
+        .content {
+            width: 80%;
+            padding-left: 20px;
+        }
+
+        .post {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .post-header {
+            margin-bottom: 10px;
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .post-text {
+            margin-bottom: 10px;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .post-actions button {
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .post-actions button:hover {
+            background-color: #e67300;
+        }
+
+        .post-form {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .post-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .post-form input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        .post-form input[type="submit"] {
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .post-form input[type="submit"]:hover {
+            background-color: #e67300;
+        }
+
+        /* Темная тема */
+        body.dark-theme {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.dark-theme .container {
+            background-color: #444;
+            border-color: #555;
+        }
+
+        body.dark-theme .sidebar a {
+            background-color: #555;
+            color: #fff;
+        }
+
+        body.dark-theme .sidebar a:hover {
+            background-color: #ff8c00;
+        }
+
+        body.dark-theme .post {
+            background-color: #555;
+            border-color: #666;
+            color: #fff;
+        }
+
+        body.dark-theme .post-header {
+            color: #bbb;
+        }
+
+        body.dark-theme .post-form {
+            background-color: #555;
+            border-color: #666;
+            color: #fff;
+        }
+
+        body.dark-theme .post-form textarea,
+        body.dark-theme .post-form input {
+            background-color: #666;
+            color: #fff;
+            border-color: #777;
+        }
+
+        body.dark-theme .post-form input[type="submit"] {
+            background-color: #ff8c00;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        body.dark-theme .post-form input[type="submit"]:hover {
+            background-color: #e67300;
+        }
+
+        /* Кнопка переключения темы */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .theme-toggle:hover {
+            background-color: #e67300;
+        }
+    </style>
+</head>
+<body>
+    <div class="header" onclick="goToMainPage()">
+        <h1>Патч</h1>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="PROGR.html">Раздел /pr Программирование</a></li>
+                <li><a href="lova.html">Раздел /lv Отношения</a></li>
+                <li><a href="game.html">Раздел /gg Видеоигры</a></li>
+                <li><a href="anime.html">Раздел /an Аниме</a></li>
+                <li><a href="indczx.html">Раздел /b+ Бред+</a></li>
+                <li><a href="nas.html">О нас</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>Раздел: Отношения</h2>
+
+            <!-- Посты будут добавляться сюда -->
+            <div id="posts-container"></div>
+
+            <!-- Форма для создания нового поста -->
+            <div class="post-form">
+                <h3>Написать новый пост</h3>
+                <form id="post-form" onsubmit="addPost(event)">
+                    <textarea name="text" rows="5" placeholder="Введите текст поста..." required></textarea><br>
+                    <input type="file" name="image"><br>
+                    <input type="submit" value="Отправить">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка переключения темы -->
+    <button class="theme-toggle" onclick="toggleTheme()">Темная тема</button>
+
+    <script>
+        // Массив для хранения постов
+        let posts = [];
+
+        // Пример существующих постов о программировании
+        const existingPosts = [
+            {
+                id: 1,
+                text: "недавно поиграл в кингдом кам 2, как ваши впечатления, может мне сделать мод на машину, вместо лошади?",
+                image: '1234.jpg',
+                likes: 10,
+                views: 50,
+                timestamp: "2023-10-01 12:34"
+            },
+            {
+                id: 2,
+                text: "Посоветуйте игры на двоих с другом",
+                image: "",
+                likes: 5,
+                views: 30,
+                timestamp: "2023-10-02 15:20"
+            },
+         
+        ];
+
+        // Добавляем существующие посты в массив posts
+        posts = [...existingPosts, ...posts];
+
+        // Функция для добавления нового поста
+        function addPost(event) {
+            event.preventDefault(); // Отменяем стандартное поведение формы
+
+            // Получаем данные из формы
+            const formData = new FormData(event.target);
+            const text = formData.get('text');
+            const image = formData.get('image');
+
+            // Создаем новый пост
+            const newPost = {
+                id: Date.now(), // Уникальный ID поста
+                text: text,
+                image: image ? URL.createObjectURL(image) : null, // Преобразуем файл в URL
+                likes: 0,
+                views: 0,
+                timestamp: new Date().toLocaleString(), // Время создания
+            };
+
+            // Добавляем пост в массив
+            posts.push(newPost);
+
+            // Очищаем форму
+            event.target.reset();
+
+            // Обновляем отображение постов
+            renderPosts();
+        }
+
+        // Функция для отображения постов
+        function renderPosts() {
+            const postsContainer = document.getElementById('posts-container');
+            postsContainer.innerHTML = ''; // Очищаем контейнер
+
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.innerHTML = `
+                    <div class="post-header">
+                        №${post.id} | Аноним | ${post.timestamp} | 👁️ ${post.views} | ❤️ ${post.likes}
+                    </div>
+                    ${post.image ? `<img src="${post.image}" class="post-image">` : ''}
+                    <div class="post-text">${post.text}</div>
+                    <div class="post-actions">
+                        <button onclick="likePost(${post.id})">Лайк</button>
+                        <button onclick="deletePost(${post.id})">Удалить</button>
+                    </div>
+                `;
+                postsContainer.appendChild(postElement);
+
+                // Увеличиваем счетчик просмотров
+                post.views++;
+            });
+        }
+
+        // Функция для лайка поста
+        function likePost(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                post.likes++;
+                renderPosts();
+            }
+        }
+
+        // Функция для удаления поста
+        function deletePost(postId) {
+            posts = posts.filter(p => p.id !== postId);
+            renderPosts();
+        }
+
+        // Функция для переключения темы
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const themeButton = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('dark-theme')) {
+                themeButton.textContent = 'Светлая тема';
+            } else {
+                themeButton.textContent = 'Темная тема';
+            }
+        }
+
+        // Функция для перехода на главную страницу
+        function goToMainPage() {
+            window.location.href = "GLAVNAYA STRANICA.html";
+        }
+
+        // Инициализация (отображение существующих постов)
+        function init() {
+            renderPosts();
+        }
+
+        init(); // Запуск инициализации
+    </script>
+</body>
+</html>

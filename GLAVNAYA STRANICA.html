@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Патч</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff; /* Белый фон */
+            color: #333; /* Темный текст */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Занимает всю высоту экрана */
+            background: linear-gradient(to bottom, #ffebcd, #fff); /* Мягкий градиент */
+            transition: background-color 0.3s ease, background-image 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+            background: linear-gradient(to bottom, #333, #444);
+        }
+
+        .header {
+            background-color: #ff8c00; /* Оранжевый цвет */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #e67300;
+            width: 100%;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .header.dark-mode {
+            background-color: #555;
+            border-color: #666;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff8c00;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle.dark-mode {
+            background-color: #333;
+        }
+
+        .theme-toggle.dark-mode:hover {
+            background-color: #444;
+        }
+
+        .main-content {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            animation: fadeIn 1s ease-in-out; /* Анимация появления */
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out; /* Анимация скольжения */
+        }
+
+        .enter-button {
+            background-color: #ff8c00;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Убрать подчеркивание ссылки */
+            animation: pulse 2s infinite; /* Пульсирующая анимация */
+            display: inline-block; /*  Чтобы применить transition */
+        }
+
+        .enter-button.dark-mode {
+            background-color: #333;
+        }
+
+        .enter-button.dark-mode:hover {
+            background-color: #444;
+        }
+
+        .footer {
+            background-color: #ff8c00; 
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-top: 2px solid #e67300;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            z-index: 1; 
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .footer.dark-mode {
+            background-color: #555;
+            border-color: #666;
+        }
+
+        /* Стили для фигур */
+        #figure-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh; /* Увеличено для более длинной анимации */
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 100; /* Увеличьте z-index, чтобы быть выше футера */
+        }
+
+        .figure {
+            position: absolute;
+            bottom: -50px; 
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            opacity: 1;
+            pointer-events: none; /*  Чтобы клики проходили сквозь фигуры */
+        }
+
+        .figure.circle {
+            background-color: orange;
+        }
+
+        .figure.square {
+            background-color: #ff69b4;
+            border-radius: 0;
+        }
+
+        .figure.triangle {
+            background-color: #33cc33;
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+        }
+
+        .figure.dark-mode.circle {
+            background-color: #777;
+        }
+
+        .figure.dark-mode.square {
+            background-color: #666;
+        }
+
+        .figure.dark-mode.triangle {
+            background-color: #555;
+        }
+
+        /* Стили для уведомления */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50; /* Зеленый фон */
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Поверх всего */
+            display: block; /* Отображать уведомление */
+            text-align: left; /* Выравнивание текста по левому краю */
+            animation: slideIn 0.5s ease-out; /* Анимация */
+            transition: background-color 0.3s ease;
+        }
+
+        .notification.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px); /* Начинаем снизу */
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);  /
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+   
+
+    <div class="notification" id="notification">
+        <span class="notification-close" id="notification-close">&times;</span>
+        <p>Уважаемая Анастасия Андреевна, этот сайт я писал сам, без шаблонов и тд.</p> 
+        <p>  Старался по максимуму, но возможно получилось сыровато, надеюсь на понимание. </p>
+    </div>
+
+    <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">Переключить тему</button>
+
+    <div class="header">
+        <h1>Патч</h1>
+    </div>
+
+    <div class="main-content">
+        <p> Анонимный форум студентов для обсуждения всего на свете.</p>
+        <a href="indczx.html" class="enter-button">Войти на форум</a>
+        <p id="current-date"></p>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 KUSCH.inc.  Все права защищены.
+    </div>
+    <div id="figure-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('figure-container');
+
+      function createFigure() {
+        const figure = document.createElement('div');
+        figure.classList.add('figure');
+
+        const type = Math.floor(Math.random() * 3);
+        if (type === 0) {
+            figure.classList.add('circle');
+        } else if (type === 1) {
+            figure.classList.add('square');
+        } else {
+            figure.classList.add('triangle');
+        }
+
+        figure.style.left = Math.random() * 100 + 'vw';
+
+        const size = Math.random() * 20 + 20;
+        figure.style.width = size + 'px';
+        figure.style.height = size + 'px';
+
+        container.appendChild(figure);
+
+        animateFigure(figure);
+      }
+
+      function animateFigure(figure) {
+        const animationDuration = Math.random() * 5 + 3;
+
+        figure.animate([
+          { transform: 'translateY(0)', opacity: 1 },
+          { transform: `translateY(-${window.innerHeight}px)`, opacity: 0 }
+        ], {
+          duration: animationDuration * 1000,
+          easing: 'ease-in',
+          fill: 'forwards'
+        }).finished.then(() => {
+          figure.remove();
+        });
+      }
+
+      setInterval(createFigure, 500);
+    });
+
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        document.querySelector('.header').classList.toggle('dark-mode');
+        document.querySelector('.footer').classList.toggle('dark-mode');
+        document.querySelector('.enter-button').classList.toggle('dark-mode');
+        document.querySelector('.notification').classList.toggle('dark-mode');
+        document.querySelectorAll('.figure').forEach(figure => figure.classList.toggle('dark-mode'));
+        document.getElementById('theme-toggle').classList.toggle('dark-mode');
+    }
+
+    function getCurrentDate() {
+        const date = new Date();
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        document.getElementById('current-date').innerText = `Текущая дата: ${day}.${month}.${year}`;
+    }
+
+    getCurrentDate();
+
+    document.addEventListener('DOMContentLoaded', function() {
+            const notification = document.getElementById('notification');
+            const closeButton = document.getElementById('notification-close');
+
+            
+            notification.style.display = 'block';
+
+            // закрыть уведомление при клике на кнопку закрытия
+            closeButton.addEventListener('click', function() {
+                notification.style.display = 'none'; 
+            });
+
+        });
+    
+  </script>
+</body>
+</html>

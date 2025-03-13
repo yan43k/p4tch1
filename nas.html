@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - Патыч</title>
+    <style>
+        body {
+            background-color: #fff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #ff8c00;
+            color: white;
+            padding: 10px 20px;
+            text-align: left;
+            border-bottom: 2px solid #e67300;
+            cursor: pointer;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            display: flex; /* Flexbox для размещения разделов слева */
+        }
+
+        .sidebar {
+            width: 20%;
+            padding-right: 20px;
+            border-right: 1px solid #eee;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 8px 12px;
+            background-color: #f9f9f9;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #ffb347;
+            color: white;
+        }
+
+        .content {
+            width: 80%;
+            padding-left: 20px;
+        }
+
+        .content h2 {
+            margin-top: 0;
+        }
+
+        .content p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header" onclick="goToMainPage()">
+        <h1>Патч</h1>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="PROGR.html">Раздел /pr Программирование</a></li>
+                <li><a href="lova.html">Раздел /lv Отношения</a></li>
+                <li><a href="game.html">Раздел /gg Видеоигры</a></li>
+                <li><a href="anime.html">Раздел /an Аниме</a></li>
+                <li><a href="indczx.html">Раздел /b+ Бред+</a></li>
+                <li><a href="nas.html">О нас</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h2>О нас</h2>
+            <p>Добро пожаловать на "Патч" — анонимный форум для студентов, где вы можете обсуждать различные темы, делиться опытом и находить единомышленников. Наш форум создан для свободного общения и обмена информацией.</p>
+            <p>Мы ценим вашу анонимность и стремимся создать комфортное пространство для всех участников. Присоединяйтесь к нашим обсуждениям и не забывайте соблюдать правила форума!</p>
+            <p>Если у вас есть вопросы или предложения, вы можете связаться с нами через раздел "Обратная связь". Мы всегда рады вашим отзывам!</p>
+            <p>Связь с нами: p4tch@outlook.com </p>
+            <img src="1111.jpg">
+        </div>
+    </div>
+
+    <script>
+        function goToMainPage() {
+            window.location.href = "GLAVNAYA STRANICA.html";
+        }
+    </script>
+</body>
+</html>
